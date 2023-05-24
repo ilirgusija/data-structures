@@ -1,4 +1,5 @@
-#include "linked_lists/linked_list.h"
+// #include "linked_lists/linked_list.h"
+#include "heap/heap.h"
 #include <iostream>
 
 int fib(int n ){
@@ -14,6 +15,21 @@ int fib(int n ){
     return res;
 }
 
+template<typename T>
+std::vector<T> heap_sort(std::vector<T> arr){
+    Heap<T>* heap = new Heap<int>(arr);
+    T temp;
+    int max = heap->heap.size() - 1;
+    for(int i = 0; i< heap->heap.size(); i++){
+        temp = heap->heap.at(max);
+        heap->heap.at(max) = heap->heap.at(0);
+        heap->heap.at(0) = temp;
+        max--;
+        heap->heapify(max, 0);
+    }
+    return heap->heap;
+}
+
 int main(int, char **) {
   // LinkedList *list = new LinkedList(new LinkedList::Node(
   //     1, new LinkedList::Node(2, new LinkedList::Node(3))));
@@ -25,6 +41,13 @@ int main(int, char **) {
   // do{
   //   std::cout << node->val << '\n';
   // }while ((node = node->next));
-  std::cout << fib(1) << fib(2) << fib(3)<<fib(4)<<fib(5);
+  // std::cout << fib(1) << fib(2) << fib(3)<<fib(4)<<fib(5);
+  std::vector<int> arr = {2,8,5,3,9,1};
+  arr = heap_sort(arr);
+  for(int i = 0; i < arr.size(); i++){
+    std::cout << arr.at(i) << '\n';
+  }
+
+
   return 0;
 }
